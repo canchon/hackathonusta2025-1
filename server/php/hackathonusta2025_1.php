@@ -1,5 +1,5 @@
 <?php
-class monitoreoBioGas extends Conexion
+class hackathonusta2025_1 extends Conexion
 {
     public $Conexions;
 
@@ -12,7 +12,7 @@ class monitoreoBioGas extends Conexion
 
     public function getValues($arg)
     { //no necesita ningun parámetro realmente.
-        $sql = "SELECT * FROM monitoreoBioGas";
+        $sql = "SELECT * FROM `hackathonusta2025-1`";
         $array = $this->Conexions->connection->query($sql);
         if (!$this->Conexions->connection->query($sql) === true) {
 
@@ -61,36 +61,29 @@ class monitoreoBioGas extends Conexion
     public function addData($arg)
     {
         //print_r($arg);
-        $sql = "SELECT * FROM monitoreoBioGas ORDER BY id DESC LIMIT 1"; //me traigo el último grupo ingresado
-        $array = $this->Conexions->connection->query($sql);
+        $querySuccessful = false;
 
-        $row_response = $array->fetch_assoc();
-        if (empty($row_response)) {
+        foreach ($arg as $jsonString) {
+            //print_r($jsonString);
+
+            // Acceder a los valores
+            $temperature = $jsonString['temperature'];
+            $humidity = $jsonString['humidity'];
+            $noise = $jsonString['noise'];
+            $thereIsMovement = $jsonString['thereIsMovement'];
+            $light = $jsonString['light'];
+
+            $sql2 = "INSERT INTO `hackathonusta2025-1` (`temperature`, `humidity`, `noise`, `thereIsMovement`, `light`)
+                                               VALUES ('$temperature','$humidity','$noise', '$thereIsMovement','$light')";
+
+            ($this->Conexions->connection->query($sql2)) ? $querySuccessful = true : $querySuccessful = false;
+        }
+        if (!$querySuccessful) {
             echo 'petición fallida -> ' . $this->connection->connect_error;
             return 0;
         } else {
-            $querySuccessful = false;
-
-            foreach ($arg as $jsonString) {
-                //print_r($jsonString);
-
-                // Acceder a los valores
-                $temperature = $jsonString['temperature'];
-                $presion = $jsonString['presion'];
-                $alturaAproximada = $jsonString['alturaAproximada'];
-
-                $sql2 = "INSERT INTO monitoreoBioGas (`temperature`, `presion`, `alturaAproximada`)
-                                    VALUES ('$temperature','$presion','$alturaAproximada')";
-
-                ($this->Conexions->connection->query($sql2)) ? $querySuccessful = true : $querySuccessful = false;
-            }
-            if (!$querySuccessful) {
-                echo 'petición fallida -> ' . $this->connection->connect_error;
-                return 0;
-            } else {
-                //return '{1: 1}';
-                return 1;
-            }
+            //return '{1: 1}';
+            return 1;
         }
     }
 

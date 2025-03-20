@@ -1,6 +1,6 @@
 const fetchData = (module, accion, parameters) => {
     return new Promise((resolve, reject) => {
-        const url = "https://api.thingspeak.com/channels/2754061/feeds.json?api_key=I07CKSIW92TBS2PI&days=30"
+        const url = "https://midnightblue-tiger-539584.hostingersite.com/"
         const json = {
             'module': module,
             'accion': accion,
@@ -21,7 +21,7 @@ const fetchData = (module, accion, parameters) => {
 
 const bringData = async () => {
     try {
-        let response = await fetchData("monitoreoBioGas", "getValues", "{}")
+        let response = await fetchData("hackathonusta2025_1", "getValues", "{}")
         response = JSON.parse(response)
         console.log(response)
         let i = 0

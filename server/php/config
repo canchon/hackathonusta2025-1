@@ -1,9 +1,9 @@
 {
     "conexion": {
         "server": "localhost",
-        "user": "if0_37705870",
-        "password": "StY27kwA8GGi",
-        "database": "if0_37705870_articulos",
+        "user": "u987779492_canchon",
+        "password": "databaseProjectsCanchon200325",
+        "database": "u987779492_projects",
         "port": "3306"
     }
 }

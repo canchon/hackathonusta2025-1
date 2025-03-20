@@ -1,6 +1,6 @@
 const fetchData = (module, accion, parameters) => {
     return new Promise((resolve, reject) => {
-        const url = "https://rocketust2.000webhostapp.com/"
+        const url = "https://midnightblue-tiger-539584.hostingersite.com/"
         const json = {
             'module': module,
             'accion': accion,
@@ -21,42 +21,34 @@ const fetchData = (module, accion, parameters) => {
 
 const bringData = async () => {
     try {
-        let response = await fetchData("rocket", "getLastData", "{}")
-        response = JSON.parse(response)
+        let response = await fetchData("hackathonusta2025_1", "getValues", "{}")
+        response = JSON.parse(JSON.parse(response))
         console.log(response)
         let i = 0
         const rowTable = document.getElementById("row_table")
         rowTable.innerHTML = ""
         for (const e of response) {
             i++
+            console.log(e)
+            let thereIsMovement;
+            if (e.thereIsMovement == 1 || e.thereIsMovement == '1')
+                thereIsMovement = 'Sí';
+            else
+                thereIsMovement = 'No';
+
             rowTable.innerHTML += `
-            <!--<tr >
-                <th scope="row">${i}</th>
-                <td>${e.temperature}</td>
-                <td>${e.humidity}</td>
-                <td>${e.date}</td>
-            </tr>-->
-
-
-            <tr>
-                <th scope="row">${i}</th>
-                <td scope="col">${e.rot_x}</td>
-                <td scope="col">${e.rot_y}</td>
-                <td scope="col">${e.rot_z}</td>
-                <td scope="col">${e.acc_x}</td>
-                <td scope="col">${e.acc_y}</td>
-                <td scope="col">${e.acc_z}</td>
-                <td scope="col">${e.vel_x}</td>
-                <td scope="col">${e.vel_y}</td>
-                <td scope="col">${e.vel_z}</td>    
-                <td scope="col">${e.pos_x}</td>
-                <td scope="col">${e.pos_y}</td>
-                <td scope="col">${e.pos_z}</td>
-                <td scope="col">${formatDate(e.createdAt)}</td>
-            </tr>
-            `
+                <tr>
+                    <th scope="row">${i}</th>
+                    <td scope="col">${e.temperature}</td>
+                    <td scope="col">${e.humidity}</td>
+                    <td scope="col">${e.noise}</td>
+                    <td scope="col">${thereIsMovement}</td>
+                    <td scope="col">${e.light}</td>
+                    <td scope="col">${formatDate(e.createdAt)}</td>
+                </tr>
+                `
         }
-        getLastConnection();
+        // getLastConnection();
     } catch (error) { console.error(error) }
 }
 
