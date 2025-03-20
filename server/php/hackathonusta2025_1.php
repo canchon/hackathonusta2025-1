@@ -90,7 +90,7 @@ class hackathonusta2025_1 extends Conexion
     public function getLastData($arg)
     {
         //print_r($arg);
-        $sql = "SELECT * FROM monitoreoBioGas ORDER BY id DESC LIMIT 1"; //me traigo el último grupo ingresado
+        $sql = "SELECT * FROM `hackathonusta2025-1` ORDER BY id DESC LIMIT 1"; //me traigo el último grupo ingresado
         $array = $this->Conexions->connection->query($sql);
 
         $row_response = $array->fetch_assoc();
@@ -98,17 +98,8 @@ class hackathonusta2025_1 extends Conexion
             echo 'petición fallida -> ' . $this->connection->connect_error;
             //return 0;
         } else {
-            $group = $row_response['group'];
-
-            $sql = "SELECT * FROM monitoreoBioGas WHERE `group` = '$group'";
-            $array = $this->Conexions->connection->query($sql);
-            if (!$this->Conexions->connection->query($sql) === true) {
-                echo "\n- Error en la petición -> " . $this->connection->connect_error . "\n";
-            }
             $response = array();
-            while ($row = $array->fetch_assoc()) {
-                array_push($response, $row);
-            }
+            array_push($response, $row_response);
             return $response;
         }
     }

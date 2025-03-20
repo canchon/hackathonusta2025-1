@@ -61,18 +61,16 @@ const formatDate = (DateResponse) => {
 
 const getLastConnection = async () => {
     try {
-        let response = await fetchData("rocket", "getlastConnection", "{}")
+        let response = await fetchData("hackathonusta2025_1", "getLastData", "{}")
         response = JSON.parse(response)
         console.log(response)
-        let i = 0
-        const rowTable = document.getElementById("lastConnection")
-        rowTable.innerHTML = ""
-        for (const e of response) {
-            i++
-            rowTable.innerHTML += `
-                ${formatDate(e.modifiedAt)}
-            `
-        }
+        const temperature_graphic = document.getElementById("temperature_graphic")
+        temperature_graphic.innerHTML = `
+            <canvas data-type="linear-gauge" data-width="160" data-height="600" data-border-radius="00" data-borders="0"
+                data-bar-stroke-width="20" data-minor-ticks="10"
+                data-major-ticks="0,10,20,30,40,50,60,70,80,90,100" data-value="${response[0].temperature}"
+                data-units="°C" data-color-value-box-shadow="false">
+            </canvas>`
     } catch (error) { console.error(error) }
 }
 
