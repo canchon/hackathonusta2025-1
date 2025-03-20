@@ -1,0 +1,9 @@
+{
+    "conexion": {
+        "server": "localhost",
+        "user": "if0_37705870",
+        "password": "StY27kwA8GGi",
+        "database": "if0_37705870_articulos",
+        "port": "3306"
+    }
+}
