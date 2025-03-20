@@ -59,7 +59,7 @@ const formatDate = (DateResponse) => {
 }
 
 
-const getLastConnection = async () => {
+const getLastTemperature = async () => {
     try {
         let response = await fetchData("hackathonusta2025_1", "getLastData", "{}")
         response = JSON.parse(response)
@@ -71,6 +71,27 @@ const getLastConnection = async () => {
                 data-major-ticks="0,10,20,30,40,50,60,70,80,90,100" data-value="${response[0].temperature}"
                 data-units="°C" data-color-value-box-shadow="false">
             </canvas>`
+    } catch (error) { console.error(error) }
+}
+
+const getLastLuminocidad = async () => {
+    try {
+        let response = await fetchData("hackathonusta2025_1", "getLastData", "{}")
+        response = JSON.parse(response)
+        console.log(response)
+        var gauge = new RadialGauge({
+            renderTo: 'luminocidad_graphicCanvas',
+            width: 390,
+            height: 390,
+            units: 'Lx',
+            title: false,
+            value: response[0].light,
+            minValue: 900,
+            maxValue: 4200,
+            majorTicks: [
+                '900', '1200', '1500', '1800', '2100', '2400', '2700', '3000', '3300', '3600', '3900', '4200'
+            ]
+        }).draw();
     } catch (error) { console.error(error) }
 }
 

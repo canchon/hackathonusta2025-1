@@ -23,11 +23,12 @@
     </script>
 
     <div class='principal'>
-        <div class='shelf'>
+
+        <div class='shelf' style="flex-direction: row; align-items: self-start; flex-wrap: wrap;">
 
             <div class="card" style="width: fit-content;">
                 <div class="card-header" style="text-align: center; ">
-                    Temperatura
+                    Temperatura Ambiente
                 </div>
                 <div id="temperature_graphic" data-border-radius="40">
                     <!-- Injecting linear gauge -->
@@ -38,6 +39,18 @@
                     </canvas>
                 </div>
             </div>
+
+            <div class="card" style="width: fit-content;">
+
+                <div class="card-header" style="text-align: center; ">
+                    Luminocidad
+                </div>
+                <div id="luminocidad_graphic" data-border-radius="40">
+                    <!-- Injecting linear gauge -->
+                    <canvas data-type: "radial-gauge" id="luminocidad_graphicCanvas"></canvas>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -48,8 +61,25 @@
     <script>
         // Este código Actualiza el gráfico de temperatura cada 5 segundos
         setInterval(() => {
-            getLastConnection()
+            getLastTemperature()
+            getLastLuminocidad()
         }, 5000); // 5000 milisegundos = 5 segundos
+    </script>
+
+    <script>
+        var gauge = new RadialGauge({
+            renderTo: 'luminocidad_graphicCanvas',
+            width: 390,
+            height: 390,
+            units: 'Lx',
+            title: false,
+            value: 3500,
+            minValue: 900,
+            maxValue: 4200,
+            majorTicks: [
+                '900', '1200', '1500', '1800', '2100', '2400', '2700', '3000', '3300', '3600', '3900', '4200'
+            ]
+        }).draw();
     </script>
 
     <script defer src='./index.js'></script>
