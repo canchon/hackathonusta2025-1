@@ -95,4 +95,89 @@ const getLastLuminocidad = async () => {
     } catch (error) { console.error(error) }
 }
 
+const getLastOperationTemperature = async () => {
+    try {
+        let response = await fetchData("hackathonusta2025_1", "getLastData", "{}")
+        response = JSON.parse(response)
+        console.log(response)
+        const temperature_graphic = document.getElementById("temperatureOperation_graphic")
+        temperature_graphic.innerHTML = `
+            <canvas data-type="linear-gauge" data-width="160" data-height="600" data-border-radius="00" data-borders="0"
+                data-bar-stroke-width="20" data-minor-ticks="10"
+                data-major-ticks="0,10,20,30,40,50,60,70,80,90,100" data-value="${response[0].temperatureOperation}"
+                data-units="°C" data-color-value-box-shadow="false">
+            </canvas>`
+    } catch (error) { console.error(error) }
+}
+
+const getLasnoise = async () => {
+    try {
+        let response = await fetchData("hackathonusta2025_1", "getLastData", "{}")
+        response = JSON.parse(response)
+        console.log(response)
+        var gauge = new RadialGauge({
+            renderTo: 'noise_graphic',
+            width: 600,
+            height: 400,
+            units: "dB",
+            minValue: 1500,
+            maxValue: 2050,
+            // startAngle: 10,
+            // ticksAngle: 180,
+            valueBox: false,
+            majorTicks: [
+                "1500", "1550", "1600", "1650", "1700", "1750", "1800", "1850", "1900", "1950", "2000", "2050"
+            ],
+            minorTicks: 6,
+            // strokeTicks: true,
+            highlights: [
+                {
+                    "from": 1900,
+                    "to": 2050,
+                    "color": "rgba(200, 50, 50, .75)"
+                }
+            ],
+            colorPlate: "#fff",
+            borderShadowWidth: 0,
+            borders: false,
+            needleType: "arrow",
+            needleWidth: 2,
+            needleCircleSize: 7,
+            needleCircleOuter: true,
+            needleCircleInner: false,
+            animationDuration: 1500,
+            animationRule: "linear",
+            animationTarget: "plate",
+            value: response[0].noise
+        }).draw();
+    } catch (error) { console.error(error) }
+}
+
+const getLastHayPersonal = async () => {
+    try {
+        let response = await fetchData("hackathonusta2025_1", "getLastData", "{}")
+        response = JSON.parse(response)
+        console.log(response)
+        const hayPersonalButton = document.getElementById("switch-label")
+        if (response[0].thereIsMovement == 1 || response[0].thereIsMovement == '1')
+            hayPersonalButton.checked = true;
+        else
+            hayPersonalButton.checked = false;
+
+    } catch (error) { console.error(error) }
+}
+
+const getLastHumidity = async () => {
+    try {
+        let response = await fetchData("hackathonusta2025_1", "getLastData", "{}")
+        response = JSON.parse(response)
+        console.log(response)
+        const humidityBar = document.getElementById('humidityBar');
+        const humidityValue = document.getElementById('humidityValue');
+
+        humidityBar.style.height = `${response[0].humidity}%`;
+        humidityValue.textContent = `${response[0].humidity}%`;
+    } catch (error) { console.error(error) }
+}
+
 bringData()
