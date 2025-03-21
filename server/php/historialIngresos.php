@@ -50,4 +50,19 @@ class historialIngresos extends Conexion
             return 1;
         }
     }
+    public function getLastJoined($arg)
+    { //no necesita ningun parámetro realmente.
+        $sql = "SELECT joined * FROM `historialIngresos` ORDER BY id DESC LIMIT 1";
+        $array = $this->Conexions->connection->query($sql);
+        if (!$this->Conexions->connection->query($sql) === true) {
+            echo "\n- Error en la petición -> " . $this->connection->connect_error . "\n";
+        }
+        $response = array();
+        while ($row = $array->fetch_assoc()) {
+            array_push($response, $row);
+        }
+        // print_r($response);
+        return json_encode($response, true);
+        //return $response;
+    }
 }
