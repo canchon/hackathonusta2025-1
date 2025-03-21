@@ -40,6 +40,7 @@ const bringData = async () => {
                 <tr>
                     <th scope="row">${i}</th>
                     <td scope="col">${e.temperature}</td>
+                    <td scope="col">${e.temperatureOperation}</td>
                     <td scope="col">${e.humidity}</td>
                     <td scope="col">${e.noise}</td>
                     <td scope="col">${thereIsMovement}</td>

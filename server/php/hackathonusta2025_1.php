@@ -12,7 +12,7 @@ class hackathonusta2025_1 extends Conexion
 
     public function getValues($arg)
     { //no necesita ningun parámetro realmente.
-        $sql = "SELECT * FROM `hackathonusta2025-1`";
+        $sql = "SELECT * FROM `hackathonusta2025-1` ORDER BY id DESC";
         $array = $this->Conexions->connection->query($sql);
         if (!$this->Conexions->connection->query($sql) === true) {
 
@@ -72,9 +72,10 @@ class hackathonusta2025_1 extends Conexion
             $noise = $jsonString['noise'];
             $thereIsMovement = $jsonString['thereIsMovement'];
             $light = $jsonString['light'];
+            $temperatureOperation = $jsonString['temperatureOperation'];
 
-            $sql2 = "INSERT INTO `hackathonusta2025-1` (`temperature`, `humidity`, `noise`, `thereIsMovement`, `light`)
-                                               VALUES ('$temperature','$humidity','$noise', '$thereIsMovement','$light')";
+            $sql2 = "INSERT INTO `hackathonusta2025-1` (`temperature`, `humidity`, `noise`, `thereIsMovement`, `light`, `temperatureOperation`)
+                                               VALUES ('$temperature','$humidity','$noise', '$thereIsMovement','$light', '$temperatureOperation')";
 
             ($this->Conexions->connection->query($sql2)) ? $querySuccessful = true : $querySuccessful = false;
         }
