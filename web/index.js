@@ -180,4 +180,102 @@ const getLastHumidity = async () => {
     } catch (error) { console.error(error) }
 }
 
+function toggleRegister() {
+    const registerSection = document.getElementById('registerSection');
+    const loginSection = document.getElementById('loginSection');
+
+    registerSection.style.display = registerSection.style.display === 'none' ? 'block' : 'none';
+    loginSection.style.display = loginSection.style.display === 'block' ? 'none' : 'block';
+}
+
+const registerUser = async () => {
+    const newUserId = document.getElementById('newUserId').value;
+    const validIds = ["12345", "67890", "abcde"]; // IDs válidos de ejemplo
+    const registerAlertBox = document.getElementById('registerAlert');
+    registerAlertBox.style.display = 'block';
+
+    try {
+        if (!newUserId) {
+            registerAlertBox.textContent = 'Por favor, ingresa un ID válido';
+            registerAlertBox.className = 'custom-alert error';
+            return;
+        }
+        parameters = [{ "userId": newUserId }];
+        console.log(parameters)
+        let response = await fetchData("users", "addData", parameters)
+        response = JSON.parse(JSON.parse(response))
+        console.log(response)
+
+        // if (validIds.includes(newUserId)) {
+        //     registerAlertBox.textContent = 'El ID ya está registrado';
+        //     registerAlertBox.className = 'custom-alert error';
+        // } else {
+        if (response == 1 || response == '1') {
+            validIds.push(newUserId);
+            registerAlertBox.textContent = 'Registro exitoso';
+            registerAlertBox.className = 'custom-alert success';
+            document.getElementById('newUserId').value = '';
+            // }
+        }
+
+        setTimeout(() => registerAlertBox.style.display = 'none', 3000);
+    } catch (error) { console.error(error) }
+}
+
+const authenticate = async () => {
+    const userId = document.getElementById('userId').value;
+    const alertBox = document.getElementById('alert');
+    let validIds = false;
+
+    try {
+        alertBox.style.display = 'block';
+
+        if (!userId) {
+            alertBox.textContent = 'Por favor, ingresa tu ID';
+            alertBox.className = 'custom-alert error';
+            return;
+        }
+
+        let response = await fetchData("users", "getValues", "{}")
+        response = JSON.parse(JSON.parse(response))
+        console.log(response)
+        let i = 0
+        for (const e of response) {
+            i++
+            console.log(e)
+            if (e.userId == userId) {
+                validIds = true;
+            }
+        }
+
+        if (validIds) {
+            alertBox.textContent = 'Acceso autorizado';
+            alertBox.className = 'custom-alert success';
+            loginAddData(1);
+        } else {
+            alertBox.textContent = 'Acceso denegado. Usuario inexistente';
+            alertBox.className = 'custom-alert error';
+            loginAddData(0);
+        }
+
+        setTimeout(() => alertBox.style.display = 'none', 3000); // Ocultar después de 3 segundos
+
+    } catch (error) { console.error(error) }
+}
+
+const loginAddData = async (joined) => {
+    const userId = document.getElementById('userId').value;
+
+    try {
+        parameters = [{
+            "userId": userId,
+            "joined": joined
+        }];
+        console.log(parameters)
+        let response = await fetchData("historialIngresos", "addData", parameters)
+        // response = JSON.parse(JSON.parse(response))
+        console.log(response)
+    } catch (error) { console.error(error) }
+}
+
 bringData()

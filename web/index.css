@@ -173,7 +173,7 @@ body {
   display: block;
 }
 
-.submenu>li>a:hover{
+.submenu>li>a:hover {
   color: #2de233;
 }
 
@@ -193,12 +193,15 @@ body {
   --color-button: #fdffff;
   --color-black: #000;
 }
+
 .switch-button {
   display: inline-block;
 }
+
 .switch-button .switch-button__checkbox {
   display: none;
 }
+
 .switch-button .switch-button__label {
   background-color: var(--color-red);
   width: 5rem;
@@ -207,6 +210,7 @@ body {
   display: inline-block;
   position: relative;
 }
+
 .switch-button .switch-button__label:before {
   transition: .2s;
   display: block;
@@ -218,10 +222,12 @@ body {
   border-radius: 50%;
   box-shadow: inset 0px 0px 0px 1px var(--color-black);
 }
-.switch-button .switch-button__checkbox:checked + .switch-button__label {
+
+.switch-button .switch-button__checkbox:checked+.switch-button__label {
   background-color: var(--color-green);
 }
-.switch-button .switch-button__checkbox:checked + .switch-button__label:before {
+
+.switch-button .switch-button__checkbox:checked+.switch-button__label:before {
   transform: translateX(2rem);
 }
 
@@ -254,4 +260,76 @@ body {
   bottom: 20px;
   font-weight: bold;
   color: #333;
+}
+
+/* Autenticación */
+.auth-container, .register-container {
+  width: 300px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.register-button {
+  background-color: transparent;
+  color: #4caf50;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.register-button:hover {
+  color: white;
+}
+
+/* Alert */
+.custom-alert {
+  padding: 15px;
+  margin: 10px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  display: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.success {
+  background-color: #4caf50;
+}
+
+.error {
+  background-color: #f44336;
 }
